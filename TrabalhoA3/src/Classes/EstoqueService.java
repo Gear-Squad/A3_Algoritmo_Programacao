@@ -34,6 +34,11 @@ public class EstoqueService {
     public void listarProduto() {
     }
 
+    // Função Ordenar - Atribuido á Deivisson
+
+    public void ordenarProduto() {
+    }
+
     // Função Buscar Produto - Atribuido á: Deivisson
 
     public void buscarProduto() {
