@@ -1,4 +1,4 @@
-import Classes.Estoque;
+import Classes.EstoqueService;
 import Classes.Produto;
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         Produto prod = new Produto();
-        Estoque stq = new Estoque();
+        EstoqueService stq = new EstoqueService();
 
         // Váriaveis
 

@@ -2,7 +2,9 @@ package Classes;
 
 import java.util.ArrayList;
 
-public class Estoque {
+public class EstoqueService {
+
+    // Imports
 
     // Lista de Produtos nome de materiais
 
