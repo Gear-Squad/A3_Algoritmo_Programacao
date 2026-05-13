@@ -1,10 +1,41 @@
 package Classes;
 
+import java.util.ArrayList;
+
 public class Estoque {
 
-    // O que cada Classe faz?
-    // Main	<-> Interface Menu
-    // Produto <-> Dados
-    // Estoque <-> Lógica
+    // Lista de Produtos nome de materiais
+
+    ArrayList <Produto> materiais = new ArrayList<>();
+
+    // Função Cadastrar Produto
+
+    public void cadastrarProduto(){
+    }
+
+    // Função Registrar Saída
+
+    public void registrarSaida(){
+    }
+
+    // Função Listar Produtos
+
+    public void listarProduto(){
+    }
+
+    // Função Buscar Produto
+
+    public void buscarProduto(){
+    }
+
+    // Função Editar Produto
+
+    public void editarProduto(){
+    }
+
+    // Função Buscar Produto
+
+    public void excluirProduto(){
+    }
 
 }

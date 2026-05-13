@@ -1,10 +1,3 @@
-// Metódo Main
-
-// O que cada Classe faz?
-// Main	<-> Interface Menu
-// Produto <-> Dados
-// Estoque <-> Lógica
-
 import java.util.Scanner;
 
 public class Main {
@@ -23,7 +16,6 @@ public class Main {
         do {
 
             System.out.println(" -> Gear Squad - Controle de Estoque <- ");
-            System.out.println();
             System.out.println("Menu de Escolha");
             System.out.println();
             System.out.println("Escolha uma opção!");
