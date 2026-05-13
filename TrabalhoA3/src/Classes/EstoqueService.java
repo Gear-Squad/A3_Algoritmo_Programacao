@@ -1,43 +1,52 @@
 package Classes;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EstoqueService {
 
     // Imports
 
+    Produto prod = new Produto();
+    Scanner sc = new Scanner(System.in);
+
     // Lista de Produtos nome de materiais
 
-    ArrayList <Produto> materiais = new ArrayList<>();
+    ArrayList<Produto> materiais = new ArrayList<>();
 
-    // Função Cadastrar Produto
+    // Função Cadastrar Produto  - Atribuido á: Bruno
 
-    public void cadastrarProduto(){
+    public void cadastrarProduto() {
     }
 
-    // Função Registrar Saída
+    // Função Adicionar Produtos - Atribuido á: Kaique
 
-    public void registrarSaida(){
+    public void adicionarProduto() {
     }
 
-    // Função Listar Produtos
+    // Função Registrar Saída - Atribuido á: Kaique
 
-    public void listarProduto(){
+    public void registrarSaida() {
     }
 
-    // Função Buscar Produto
+    // Função Listar Produtos - Atribuido á: Deivisson
 
-    public void buscarProduto(){
+    public void listarProduto() {
     }
 
-    // Função Editar Produto
+    // Função Buscar Produto - Atribuido á: Deivisson
 
-    public void editarProduto(){
+    public void buscarProduto() {
     }
 
-    // Função Excluir Produto
+    // Função Editar Produto - Atribuido á: Deivisson
 
-    public void excluirProduto(){
+    public void editarProduto() {
+    }
+
+    // Função Excluir Produto - Atribuido á: Bruno
+
+    public void excluirProduto() {
     }
 
 }
