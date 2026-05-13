@@ -1,11 +1,15 @@
+import Classes.Estoque;
+import Classes.Produto;
 import java.util.Scanner;
 
 public class Main {
-    static void main(String[] args) {
+    public static void main(String[] args) {
 
         // Imports
 
         Scanner sc = new Scanner(System.in);
+        Produto prod = new Produto();
+        Estoque stq = new Estoque();
 
         // Váriaveis
 
@@ -27,31 +31,17 @@ public class Main {
             System.out.print("Opção escolhida: ");
             opcao = sc.nextInt();
 
-            // Validação das Opções
+            // Switch Opções
 
-            if (opcao == 1) {
+            switch (opcao) {
 
-                // Executa função Cadastro
-
+                case 1: // Executa função Cadastro
+                case 2: // Executa função Movimentação
+                case 3: // Executa função relatórios
+                case 0:
+                    System.out.println("Obrigado por acessar o nosso programa! -Gear Squad.");
             }
-            if (opcao == 2) {
-
-                // Executa função Movimentação
-
-            }
-            if (opcao == 3) {
-
-                // Executa função relatórios
-
-            }
-            if (opcao == 0) {
-
-                System.out.println("Obrigado por acessar o nosso programa! -Gear Squad.");
-                System.exit(0);
-
-            }
-        } while (opcao != 0);
-
-        // Fim programa
-    }
+        }
+        while (opcao != 0);
+    } // Fim programa
 }

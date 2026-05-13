@@ -33,7 +33,7 @@ public class Estoque {
     public void editarProduto(){
     }
 
-    // Função Buscar Produto
+    // Função Excluir Produto
 
     public void excluirProduto(){
     }
