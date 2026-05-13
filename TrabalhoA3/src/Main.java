@@ -1,5 +1,10 @@
 // Metódo Main
 
+// O que cada Classe faz?
+// Main	<-> Interface Menu
+// Produto <-> Dados
+// Estoque <-> Lógica
+
 import java.util.Scanner;
 
 public class Main {
