@@ -36,8 +36,13 @@ public class Main {
             switch (opcao) {
 
                 case 1: // Executa função Cadastro
+                    stq.cadastrarProduto();
+                    break;
                 case 2: // Executa função Movimentação
+                    break;
                 case 3: // Executa função relatórios
+                    stq.listarProduto();
+                    break;
                 case 0:
                     System.out.println("Obrigado por acessar o nosso programa! -Gear Squad.");
             }
