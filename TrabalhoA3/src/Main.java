@@ -40,8 +40,7 @@ public class Main {
                     int movimentacao;
                     do {
                         System.out.println();
-                        System.out.println(" -> Gear Squad - Movimentação de Produtos <- ");
-                        System.out.println("2 - Movimentar Produtos > ");
+                        System.out.println(" -> Gear Squad - 2 - Movimentação de Produtos <- ");
                         System.out.println();
                         System.out.println("Escolha uma opção!");
                         System.out.println(" 1 - Entrada de Produtos");
@@ -51,6 +50,7 @@ public class Main {
                         System.out.print("Opção escolhida: ");
                         movimentacao = sc.nextInt();
 
+                        // Escolha caso dentro de movimentação
                         switch (movimentacao) {
                             case 1:
                                 stq.adicionarProduto();
@@ -72,8 +72,7 @@ public class Main {
                     int listagem;
                     do {
                         System.out.println();
-                        System.out.println(" -> Gear Squad - Listagem de Produtos <- ");
-                        System.out.println("3 - Listagem de Produtos > ");
+                        System.out.println(" -> Gear Squad - 3 - Listagem de Produtos <- ");
                         System.out.println();
                         System.out.println("Escolha uma opção!");
                         System.out.println(" 1 - Listar todos os produtos");
@@ -83,6 +82,7 @@ public class Main {
                         System.out.print("Opção escolhida: ");
                         listagem = sc.nextInt();
 
+                        // Escolha caso dentro de listagem
                         switch (listagem) {
                             case 1:
                                 stq.listarProduto();
@@ -104,8 +104,7 @@ public class Main {
                     int edicao;
                     do {
                         System.out.println();
-                        System.out.println(" -> Gear Squad - Edição de Produtos <- ");
-                        System.out.println("4 - Editar Produtos > ");
+                        System.out.println(" -> Gear Squad - 4 Edição de Produtos <- ");
                         System.out.println();
                         System.out.println("Escolha uma opção!");
                         System.out.println(" 1 - Editar produto");
@@ -115,6 +114,7 @@ public class Main {
                         System.out.print("Opção escolhida: ");
                         edicao = sc.nextInt();
 
+                        // Escolha caso dentro de edição
                         switch (edicao) {
                             case 1:
                                 stq.editarProduto();
