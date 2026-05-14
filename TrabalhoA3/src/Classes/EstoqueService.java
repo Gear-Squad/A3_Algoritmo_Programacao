@@ -39,6 +39,11 @@ public class EstoqueService {
         materiais.add(prod);
     }
 
+    // Função Ordenar - Atribuido á Deivisson
+
+    public void ordenarProduto() {
+    }
+
     // Função Adicionar Produtos - Atribuido á: Kaique
 
     public void adicionarProduto() {
@@ -54,6 +59,12 @@ public class EstoqueService {
     public void listarProduto() {
         System.out.println("-> Lista de Produtos <-");
         System.out.printf("%-10s %-20s %-12s %-15s%n", "Código", "Descrição", "Quantidade", "Centro de Custo");
+
+        // %-10s — texto (s) alinhado à esquerda (-) ocupando 10 caracteres
+        //%-10d — número inteiro (d) alinhado à esquerda ocupando 10 caracteres
+        //O número define a largura da "coluna" — ajuste conforme precisar
+        //%n — quebra de linha
+
         System.out.println("=".repeat(60));
 
         for (Produto p : materiais) {
@@ -63,11 +74,6 @@ public class EstoqueService {
                     p.getQuantidade(),
                     p.getCentroCusto());
         }
-    }
-
-    // Função Ordenar - Atribuido á Deivisson
-
-    public void ordenarProduto() {
     }
 
     // Função Buscar Produto - Atribuido á: Deivisson
