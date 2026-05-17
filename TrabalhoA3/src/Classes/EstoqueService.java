@@ -87,18 +87,14 @@ public class EstoqueService {
             return;
         }
 
-        System.out.println("-> Lista de Produtos <-");
+        // Ordena a lista antes de listar
+        ordenarProduto();
 
-        // Cabeçalho da tabela
-        // %-10s — texto (s) alinhado à esquerda (-) ocupando 10 caracteres
-        // %-10d — número inteiro (d) alinhado à esquerda ocupando 10 caracteres
-        // O número define a largura da coluna — ajuste conforme precisar
-        // %n — quebra de linha
+        System.out.println("-> Lista de Produtos <-");
 
         System.out.printf("%-10s %-20s %-12s %-15s%n", "Código", "Descrição", "Quantidade", "Centro de Custo");
         System.out.println("=".repeat(60));
 
-        // Percorre a lista e exibe cada produto formatado na tabela
         for (Produto lista : materiais) {
             System.out.printf("%-10d %-20s %-12d %-15d%n",
                     lista.getCodigo(),
@@ -110,14 +106,114 @@ public class EstoqueService {
 
     // Função Ordenar - Atribuido á: Deivisson
     public void ordenarProduto() {
+        int n = materiais.size();
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // Ordena por código (crescente)
+                if (materiais.get(j).getCodigo() > materiais.get(j + 1).getCodigo()) {
+                    // Troca de posição
+                    Produto temp = materiais.get(j);
+                    materiais.set(j, materiais.get(j + 1));
+                    materiais.set(j + 1, temp);
+                }
+            }
+        }
     }
 
     // Função Buscar Produto - Atribuido á: Deivisson
+    private Produto buscarPorCodigo(int codigo) {
+        for (Produto p : materiais) {
+            if (p.getCodigo() == codigo) {
+                return p;
+            }
+        }
+        return null;
+    }
     public void buscarProduto() {
+        System.out.println("-> Buscar Produto <-");
+
+        if (materiais.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+            return;
+        }
+
+        System.out.print("Insira o código do produto: ");
+        int codigo = sc.nextInt();
+
+        Produto prod = buscarPorCodigo(codigo);
+
+        if (prod == null) {
+            System.out.println("✗ Produto não encontrado!");
+            return;
+        }
+
+        System.out.println("\n=== Produto Encontrado ===");
+        System.out.println("Código: " + prod.getCodigo());
+        System.out.println("Descrição: " + prod.getDescricao());
+        System.out.println("Quantidade: " + prod.getQuantidade());
+        System.out.println("Centro de Custo: " + prod.getCentroCusto());
     }
 
     // Função Editar Produto - Atribuido á: Deivisson
     public void editarProduto() {
+        System.out.println("-> Editar Produto <-");
+
+        if (materiais.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+            return;
+        }
+
+        System.out.print("Insira o código do produto a editar: ");
+        int codigo = sc.nextInt();
+
+        Produto prod = buscarPorCodigo(codigo);
+
+        if (prod == null) {
+            System.out.println("✗ Produto não encontrado!");
+            return;
+        }
+
+        System.out.println("Produto atual: " + prod.getDescricao());
+        System.out.println("O que deseja editar?");
+        System.out.println("1 - Descrição: " + prod.getDescricao());
+        System.out.println("2 - Quantidade: " + prod.getQuantidade());
+        System.out.println("3 - Centro de Custo: " + prod.getCentroCusto());
+        System.out.println("4 - Tudo");
+        System.out.print("Opção: ");
+        int opcao = sc.nextInt();
+        sc.nextLine(); // Limpa buffer
+
+        switch (opcao) {
+            case 1:
+                System.out.print("Nova descrição: " + prod.getDescricao());
+                prod.setDescricao(sc.nextLine());
+                break;
+            case 2:
+                System.out.print("Nova quantidade: " + prod.getQuantidade());
+                prod.setQuantidade(sc.nextInt());
+                break;
+            case 3:
+                System.out.print("Novo Centro de Custo: " + prod.getCentroCusto());
+                prod.setCentroCusto(sc.nextInt());
+                break;
+            case 4:
+                System.out.println("Antiga descrição: " + prod.getDescricao());
+                System.out.print("Nova descrição: ");
+                prod.setDescricao(sc.nextLine());
+                System.out.println("Antiga quantidade: " + prod.getQuantidade());
+                System.out.print("Nova quantidade: ");
+                prod.setQuantidade(sc.nextInt());
+                System.out.println("Antigo Centro de Custo: " + prod.getCentroCusto());
+                System.out.print("Novo Centro de Custo: ");
+                prod.setCentroCusto(sc.nextInt());
+                break;
+            default:
+                System.out.println("✗ Opção inválida!");
+                return;
+        }
+
+        System.out.println("✓ Produto atualizado com sucesso!");
     }
 
     // Função Excluir Produto - Atribuido á: Bruno
