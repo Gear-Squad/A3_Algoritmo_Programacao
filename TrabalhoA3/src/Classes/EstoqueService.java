@@ -272,6 +272,46 @@ public class EstoqueService {
     // Função Excluir Produto - Atribuido á: Bruno
 
     public void excluirProduto() {
+
+        // Variável Confirmação
+
+        String confirmacao;
+
+        System.out.println("-> Excluir Produto <-");
+
+        // Verifica se há produtos cadastrados
+
+        if (materiais.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+            return;
+        }
+
+        // Busca o produto pelo código
+
+        System.out.print("Insira o código do produto a excluir: ");
+        int codigo = sc.nextInt();
+
+        Produto prod = buscarPorCodigo(codigo);
+
+        // Caso não encontre
+        if (prod == null) {
+            System.out.println("✗ Produto não encontrado!");
+            return;
+        }
+
+        // Exibe o produto e pede confirmação antes de excluir
+
+        System.out.println("Produto encontrado: " + prod.getDescricao() + " | Quantidade: " + prod.getQuantidade() + " | Centro de custo: " + prod.getCentroCusto());
+
+        System.out.print("Confirma exclusão? S - Sim | N - Não: ");
+        confirmacao = sc.next().toUpperCase();
+
+        if (confirmacao.equals("S")) {
+            materiais.remove(prod); // Remove o objeto da lista
+            System.out.println("✓ Produto excluído com sucesso!");
+        } else {
+            System.out.println("Exclusão cancelada.");
+        }
     }
 
     // Função Limpar Lista de Produtos - Atribuido á : Bruno
