@@ -105,7 +105,7 @@ public class EstoqueService {
 
             for (int j = 0; j < n - i - 1; j++) {
 
-                // Se o código do item atual for maior que o próximo,
+                // Se o código do item atual for menor que o próximo,
                 // eles precisam trocar de lugar para ficar crescente.
 
                 if (materiais.get(j).getCodigo() > materiais.get(j + 1).getCodigo()) {
@@ -125,6 +125,7 @@ public class EstoqueService {
                 }
             }
         }
+        System.out.println("Lista ordenada!");
     }
 
     // Função Listar Produtos - Atribuido á: Deivisson
@@ -208,13 +209,13 @@ public class EstoqueService {
         // Se não achou, prod será null
 
         if (prod == null) {
-            System.out.println("✗ Produto não encontrado!");
+            System.out.println("Produto não encontrado!");
             return;
         }
 
         // Se achou, prod mostra as caracteristicas do produto
 
-        System.out.println("\n=== Produto Encontrado ===");
+        System.out.println("=== Produto Encontrado ===");
         System.out.println("Código: " + prod.getCodigo());
         System.out.println("Descrição: " + prod.getDescricao());
         System.out.println("Quantidade: " + prod.getQuantidade());
@@ -245,7 +246,7 @@ public class EstoqueService {
         // Se não encontrou. encerra
 
         if (prod == null) {
-            System.out.println("✗ Produto não encontrado!");
+            System.out.println("Produto não encontrado!");
             return;
         }
 
@@ -309,11 +310,11 @@ public class EstoqueService {
                 break;
 
             default: // Caso opcao digitada não seja valida
-                System.out.println("✗ Opção inválida!");
+                System.out.println("Opção inválida!");
                 return;
         }
         // Feedback ao usuário.
-        System.out.println("✓ Produto atualizado com sucesso!");
+        System.out.println("Produto atualizado com sucesso!");
     }
 
     // Função Excluir Produto - Atribuido á: Bruno
@@ -342,7 +343,7 @@ public class EstoqueService {
 
         // Caso não encontre
         if (prod == null) {
-            System.out.println("✗ Produto não encontrado!");
+            System.out.println("Produto não encontrado!");
             return;
         }
 
@@ -355,7 +356,7 @@ public class EstoqueService {
 
         if (confirmacao.equals("S")) {
             materiais.remove(prod); // Remove o objeto da lista
-            System.out.println("✓ Produto excluído com sucesso!");
+            System.out.println("Produto excluído com sucesso!");
         } else {
             System.out.println("Exclusão cancelada.");
         }
@@ -364,6 +365,27 @@ public class EstoqueService {
     // Função Limpar Lista de Produtos - Atribuido á : Bruno
 
     public void limparLista() {
-        materiais.clear();
+
+        // Variáveis
+
+        String confirmacao;
+
+        //  Caso esteja vazio
+
+        if (materiais.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+            return;
+        }
+
+        System.out.println(" -> Limpar a Lista <- ");
+        System.out.print("Tem certeza que deseja limpar toda a lista: S - Sim | N - Não: ");
+        confirmacao = sc.next().toUpperCase();
+
+        if (confirmacao.equals("S")) {
+            materiais.clear(); // Limpa toda a lista
+            System.out.println("Lista limpa com sucesso!");
+        } else {
+            System.out.println("Limpeza cancelada.");
+        }
     }
 }
