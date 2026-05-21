@@ -89,11 +89,51 @@ public class EstoqueService {
     public void registrarSaida() {
     }
 
+    // Função Ordenar - Atribuido á: Deivisson
+
+    public void ordenarProduto() {
+
+        // n = tamanho da lista
+
+        int n = materiais.size();
+
+        //Este é um Bubble Sort (ordenacao por troca),
+        // ordenando pelo campo "codigo" (crescente).
+
+        for (int i = 0; i < n - 1; i++) {
+
+            // j percorre até a parte que ainda precisa comparar
+
+            for (int j = 0; j < n - i - 1; j++) {
+
+                // Se o código do item atual for maior que o próximo,
+                // eles precisam trocar de lugar para ficar crescente.
+
+                if (materiais.get(j).getCodigo() > materiais.get(j + 1).getCodigo()) {
+
+                    // Troca de posição:
+                    // salva o atual em "temp"
+
+                    Produto temp = materiais.get(j);
+
+                    // move o próximo para a posição atual
+
+                    materiais.set(j, materiais.get(j + 1));
+
+                    // coloca o "temp" na posição do próximo
+
+                    materiais.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
     // Função Listar Produtos - Atribuido á: Deivisson
 
     public void listarProduto() {
 
         // Verifica se há produtos cadastrados antes de exibir
+        // Se não houver não exibe nada
 
         if (materiais.isEmpty()) {
             System.out.println("Nenhum produto cadastrado.");
@@ -106,49 +146,42 @@ public class EstoqueService {
 
         System.out.println("-> Lista de Produtos <-");
 
+        // printf com formatação
+
         System.out.printf("%-10s %-20s %-12s %-15s%n", "Código", "Descrição", "Quantidade", "Centro de Custo");
+
+        // Linha separadora
+
         System.out.println("=".repeat(60));
+
+        // Percorre a lista e imprime cada Produto com formatação
 
         for (Produto lista : materiais) {
             System.out.printf("%-10d %-20s %-12d %-15d%n",
-                    lista.getCodigo(),
-                    lista.getDescricao(),
-                    lista.getQuantidade(),
-                    lista.getCentroCusto());
+                    lista.getCodigo(),        // Mostra codigo do produto
+                    lista.getDescricao(),     // Mostra descrição do produto
+                    lista.getQuantidade(),    // Mostra quantidade do produto
+                    lista.getCentroCusto());  // Mostra centro de custo do produto
         }
     }
 
-    // Função Ordenar - Atribuido á: Deivisson
-
-    public void ordenarProduto() {
-        int n = materiais.size();
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-
-                // Ordena por código (crescente)
-
-                if (materiais.get(j).getCodigo() > materiais.get(j + 1).getCodigo()) {
-
-                    // Troca de posição
-
-                    Produto temp = materiais.get(j);
-                    materiais.set(j, materiais.get(j + 1));
-                    materiais.set(j + 1, temp);
-                }
-            }
-        }
-    }
-
-    // Função Buscar Produto por código - Atribuido á: Deivisson
+    // Função Buscar por código do produto- Atribuido á: Deivisson
 
     private Produto buscarPorCodigo(int codigo) {
 
+        // Percorre todos os produtos cadastrados
+
         for (Produto p : materiais) {
+
+            // Se encontrar um produto com o código informado, retorna ele
+
             if (p.getCodigo() == codigo) {
                 return p;
             }
         }
+
+        // Se não encontrar nenhum produto com o código, retorna null
+
         return null;
     }
 
@@ -157,28 +190,30 @@ public class EstoqueService {
     public void buscarProduto() {
         System.out.println("-> Buscar Produto <-");
 
-        // Se a lista estiver vazia
+        // Se a lista estiver vazia, não tem o que buscar
 
         if (materiais.isEmpty()) {
             System.out.println("Nenhum produto cadastrado.");
             return;
         }
 
-        // Caso possua itens na lista
+        // Lê o código que o usuário quer buscar
 
         System.out.print("Insira o código do produto: ");
         int codigo = sc.nextInt();
 
+        // Usa o metodo auxiliar "buscarPorCodigo" para achar o Produto
+
         Produto prod = buscarPorCodigo(codigo);
 
-        // Caso Não encontre o Produto
+        // Se não achou, prod será null
 
         if (prod == null) {
             System.out.println("✗ Produto não encontrado!");
             return;
         }
 
-        // Caso Encontre Produto
+        // Se achou, prod mostra as caracteristicas do produto
 
         System.out.println("\n=== Produto Encontrado ===");
         System.out.println("Código: " + prod.getCodigo());
@@ -192,21 +227,23 @@ public class EstoqueService {
     public void editarProduto() {
         System.out.println("-> Editar Produto <-");
 
-        // Caso a lista esteje vazia
+        // Se não houver produtos, não dá para editar
 
         if (materiais.isEmpty()) {
             System.out.println("Nenhum produto cadastrado.");
             return;
         }
 
-        // Caso possua itens na lista
+        // Lê o código do produto que o usuário quer editar
 
         System.out.print("Insira o código do produto a editar: ");
         int codigo = sc.nextInt();
 
+        // Usa o metodo auxiliar "buscarPorCodigo" para achar o Produto
+
         Produto prod = buscarPorCodigo(codigo);
 
-        // Caso não encontre o código
+        // Se não encontrou. encerra
 
         if (prod == null) {
             System.out.println("✗ Produto não encontrado!");
@@ -222,36 +259,47 @@ public class EstoqueService {
         System.out.println("3 - Centro de Custo: " + prod.getCentroCusto());
         System.out.println("4 - Tudo");
         System.out.print("Opção: ");
+
+        // Lê opção do menu
+
         int opcao = sc.nextInt();
-        sc.nextLine(); // Limpa buffer
+
+        // Limpa buffer(importante por causa da mistura nextInt() e nextLine())
+
+        sc.nextLine();
+
+        // Switch executa a edição conforme a opção escolhida
 
         switch (opcao) {
 
-            case 1:  // Descrição
-                System.out.print("Nova descrição: " + prod.getDescricao());
+            case 1:  // Editar Descrição
+                System.out.println("Antiga Descrição: " + prod.getDescricao());
+                System.out.print("Nova Descrição: " );
                 prod.setDescricao(sc.nextLine());
                 break;
 
-            case 2:  // Quantidade
-                System.out.print("Nova quantidade: " + prod.getQuantidade());
+            case 2:  // Editar Quantidade
+                System.out.println("Antiga Quantidade: " + prod.getQuantidade());
+                System.out.print("Nova Quantidade: " );
                 prod.setQuantidade(sc.nextInt());
                 break;
 
-            case 3:  // Centro de Custo
-                System.out.print("Novo Centro de Custo: " + prod.getCentroCusto());
+            case 3:  // Editar Centro de Custo
+                System.out.println("Antigo Centro de Custo: " + prod.getCentroCusto());
+                System.out.print("Novo Centro de Custo: ");
                 prod.setCentroCusto(sc.nextInt());
                 break;
 
-            case 4:  // Tudo
+            case 4:  // Editar Tudo
 
                 // Descrição
-                System.out.println("Antiga descrição: " + prod.getDescricao());
-                System.out.print("Nova descrição: ");
+                System.out.println("Antiga Descrição: " + prod.getDescricao());
+                System.out.print("Nova Descrição: ");
                 prod.setDescricao(sc.nextLine());
 
                 // Quantidade
-                System.out.println("Antiga quantidade: " + prod.getQuantidade());
-                System.out.print("Nova quantidade: ");
+                System.out.println("Antiga Quantidade: " + prod.getQuantidade());
+                System.out.print("Nova Quantidade: ");
                 prod.setQuantidade(sc.nextInt());
 
                 // Centro de Custo
@@ -261,7 +309,7 @@ public class EstoqueService {
 
                 break;
 
-            default: // Nenhuma opção
+            default: // Caso opcao digitada não seja valida
                 System.out.println("✗ Opção inválida!");
                 return;
         }
