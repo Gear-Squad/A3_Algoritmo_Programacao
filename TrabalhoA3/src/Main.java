@@ -1,7 +1,5 @@
 import Classes.EstoqueService;
-
 import java.util.Scanner;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -12,6 +10,7 @@ public class Main {
         // Objeto de serviço que gerencia a lista de produtos
         EstoqueService stq = new EstoqueService();
 
+        // Variáveis
         int opcao;
 
         // Loop principal do sistema - encerra quando opcao = 0
