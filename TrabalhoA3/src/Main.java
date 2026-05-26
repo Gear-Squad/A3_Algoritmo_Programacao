@@ -141,7 +141,7 @@ public class Main {
                                 stq.excluirProduto(); // Remove produto da lista
                                 break;
                             case 3:
-                                stq.listarProduto(); // Limpa toda a lista
+                                stq.limparLista(); // Limpa toda a lista
                                 break;
                             case 0:
                                 System.out.println("Voltando <-");
