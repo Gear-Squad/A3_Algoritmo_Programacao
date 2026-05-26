@@ -1,4 +1,6 @@
 import Classes.EstoqueService;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // Main é o ponto de entrada do programa.
@@ -6,15 +8,29 @@ import java.util.Scanner;
 // Não contém lógica de negócio — apenas controla o fluxo da aplicação.
 
 public class Main {
+
+    // Lê um número inteiro do teclado com tratamento de entrada inválida.
+    // Se o usuário digitar uma letra ou caractere, o programa não trava —
+    // exibe mensagem de erro e pede novamente até receber um número válido.
+    private static int lerInteiro(Scanner sc, String mensagem) {
+        while (true) {
+            System.out.print(mensagem);
+            try {
+                return sc.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida! Digite apenas números inteiros.");
+                sc.next(); // Descarta a entrada inválida do buffer
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         // Scanner lê o que o usuário digita no teclado
-        // System.in representa a entrada padrão (teclado)
         Scanner sc = new Scanner(System.in);
 
-        // EstoqueService é o objeto que contém toda a lógica do sistema
-        // Todos os métodos são chamados a partir daqui
-        EstoqueService stq = new EstoqueService();
+        // Nome mais descritivo que "stq" — deixa claro o que o objeto representa
+        EstoqueService estoqueService = new EstoqueService();
 
         // Variável que guarda a opção digitada pelo usuário no menu principal
         int opcao;
@@ -36,15 +52,13 @@ public class Main {
             System.out.println(" 4 - Editar Produtos");
             System.out.println(" 0 - Saída");
             System.out.println();
-            System.out.print("Opção escolhida: ");
-            opcao = sc.nextInt(); // Lê a opção do menu principal
+            opcao = lerInteiro(sc, "Opção escolhida: ");
 
             // Switch direciona para o bloco correto conforme a opção digitada
             switch (opcao) {
 
                 case 1:
-                    // Chama o método de cadastro no EstoqueService (stq)
-                    stq.cadastrarProduto();
+                    estoqueService.cadastrarProduto();
                     break;
 
                 case 2:
@@ -62,24 +76,23 @@ public class Main {
                         System.out.println(" 2 - Saída de Produtos");
                         System.out.println(" 0 - Voltar");
                         System.out.println();
-                        System.out.print("Opção escolhida: ");
-                        movimentacao = sc.nextInt();
+                        movimentacao = lerInteiro(sc, "Opção escolhida: ");
 
                         switch (movimentacao) {
                             case 1:
-                                stq.adicionarProduto(); // Registra entrada de estoque
+                                estoqueService.adicionarProduto(); // Registra entrada de estoque
                                 break;
                             case 2:
-                                stq.registrarSaida(); // Registra saída de estoque
+                                estoqueService.registrarSaida(); // Registra saída de estoque
                                 break;
                             case 0:
                                 System.out.println("Voltando <-");
                                 break;
-                            default: // Caso escolha uma opção diferente das mapeadas
+                            default:
                                 System.out.println("Opção inválida! Tente novamente.");
                         }
                     } while (movimentacao != 0); // Repete o submenu até digitar 0
-                    break; // Sai do case 2 e volta ao menu principal
+                    break;
 
                 case 3:
                     // =====================
@@ -95,20 +108,19 @@ public class Main {
                         System.out.println(" 2 - Buscar um único produto");
                         System.out.println(" 0 - Voltar");
                         System.out.println();
-                        System.out.print("Opção escolhida: ");
-                        listagem = sc.nextInt();
+                        listagem = lerInteiro(sc, "Opção escolhida: ");
 
                         switch (listagem) {
                             case 1:
-                                stq.listarProduto(); // Exibe tabela com todos os produtos
+                                estoqueService.listarProduto(); // Exibe tabela com todos os produtos
                                 break;
                             case 2:
-                                stq.buscarProduto(); // Busca produto por código
+                                estoqueService.buscarProduto(); // Busca produto por código
                                 break;
                             case 0:
                                 System.out.println("Voltando <-");
                                 break;
-                            default: // Caso escolha uma opção diferente das mapeadas
+                            default:
                                 System.out.println("Opção inválida! Tente novamente.");
                         }
                     } while (listagem != 0); // Repete o submenu até digitar 0
@@ -129,30 +141,28 @@ public class Main {
                         System.out.println(" 3 - Limpar toda lista");
                         System.out.println(" 0 - Voltar");
                         System.out.println();
-                        System.out.print("Opção escolhida: ");
-                        edicao = sc.nextInt();
+                        edicao = lerInteiro(sc, "Opção escolhida: ");
 
                         switch (edicao) {
                             case 1:
-                                stq.editarProduto(); // Edita atributos do produto
+                                estoqueService.editarProduto(); // Edita atributos do produto
                                 break;
                             case 2:
-                                stq.excluirProduto(); // Remove produto da lista
+                                estoqueService.excluirProduto(); // Remove produto da lista
                                 break;
                             case 3:
-                                stq.limparLista(); // Limpa toda a lista
+                                estoqueService.limparLista(); // Limpa toda a lista
                                 break;
                             case 0:
                                 System.out.println("Voltando <-");
                                 break;
-                            default: // Caso escolha uma opção diferente das mapeadas
+                            default:
                                 System.out.println("Opção inválida! Tente novamente.");
                         }
                     } while (edicao != 0); // Repete o submenu até digitar 0
                     break;
 
                 case 0:
-                    // Mensagem de encerramento antes de sair do loop
                     System.out.println("Obrigado por acessar o nosso programa! -Gear Squad.");
                     break;
 
