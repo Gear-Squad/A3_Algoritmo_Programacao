@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 // EstoqueService é a classe de serviço do sistema.
 // Toda a lógica fica aqui: validações, busca, cadastro, edição, exclusão.
-// A Main apenas chama os métodos desta classe
+// A Main apenas chama os métodos desta classe.
 
 public class EstoqueService {
 
@@ -22,9 +22,8 @@ public class EstoqueService {
     // Toda interação com a lista passa pelos métodos desta classe.
     private ArrayList<Produto> materiais = new ArrayList<>();
 
-
     // =====================
-    // METODO AUXILIAR PRIVADO — codigoExiste
+    // MÉTODO AUXILIAR PRIVADO — codigoExiste
     // =====================
     // Verifica se já existe um produto com o código informado na lista.
     // Retorna "true" se encontrar, "false" se não encontrar.
@@ -32,41 +31,40 @@ public class EstoqueService {
 
     private boolean codigoExiste(int codigo) {
 
-        // Percorre cada produto da lista usando o apelido "lista"
-        for (Produto lista : materiais) {
+        // Percorre cada produto da lista usando o apelido "material"
+        // Leitura: "para cada material em materiais"
+        for (Produto material : materiais) {
 
             // Compara o código de cada produto com o código recebido
             // Para int, usamos == (comparação de valor)
-            if (lista.getCodigo() == codigo) {
+            if (material.getCodigo() == codigo) {
                 return true; // Código encontrado — interrompe e retorna true
             }
         }
         return false; // Percorreu tudo e não encontrou — retorna false
     }
 
-
     // =====================
-    // METODO AUXILIAR PRIVADO — buscarPorCodigo
+    // MÉTODO AUXILIAR PRIVADO — buscarPorCodigo
     // =====================
     // Percorre a lista e retorna o objeto Produto com o código informado.
     // Se não encontrar, retorna null.
-    // É "private" porque é um metodo de suporte usado internamente.
+    // É "private" porque é um método de suporte usado internamente.
 
     private Produto buscarPorCodigo(int codigo) {
 
         // Percorre cada produto da lista
-        for (Produto p : materiais) {
+        for (Produto material : materiais) {
 
             // Se o código bater, retorna o próprio objeto Produto
-            if (p.getCodigo() == codigo) {
-                return p;
+            if (material.getCodigo() == codigo) {
+                return material;
             }
         }
 
         // Se percorreu toda a lista sem encontrar, retorna null
         return null;
     }
-
 
     // =====================
     // CADASTRAR PRODUTO
@@ -84,7 +82,13 @@ public class EstoqueService {
         System.out.print("Insira o código do produto: ");
         codigo = sc.nextInt();
 
-        // Chama o metodo auxiliar para verificar se esse código já existe
+        // Valida que o código não seja negativo — if separado e independente
+        if (codigo < 0) {
+            System.out.println("Código inválido! Insira um número inteiro positivo.");
+            return; // Encerra — não faz sentido continuar com código inválido
+        }
+
+        // Chama o método auxiliar para verificar se esse código já existe na lista
         // Se retornar true, o código está duplicado
         if (codigoExiste(codigo)) {
 
@@ -96,12 +100,12 @@ public class EstoqueService {
             validador = sc.next().toUpperCase();
 
             if (validador.equals("C")) {
-                // Chama o próprio metodo de novo (recursão)
+                // Chama o próprio método de novo (recursão)
                 // Isso reinicia o cadastro do zero com um novo código
                 cadastrarProduto();
             }
 
-            // "return" encerra essa execução do metodo
+            // "return" encerra essa execução do método
             // tanto para o caso "M" quanto após a recursão de "C"
             return;
         }
@@ -121,7 +125,16 @@ public class EstoqueService {
         prod.setDescricao(sc.nextLine()); // nextLine lê texto com espaços
 
         System.out.print("Insira a quantidade do produto: ");
-        prod.setQuantidade(sc.nextInt());
+        int quantidade = sc.nextInt();
+
+        // Valida que a quantidade não seja negativa
+        // 0 é permitido no cadastro — por isso < 0 e não <= 0
+        if (quantidade < 0) {
+            System.out.println("Quantidade inválida! Insira um número inteiro positivo.");
+            return; // Encerra sem cadastrar — sem return o produto seria adicionado mesmo assim
+        }
+
+        prod.setQuantidade(quantidade);
 
         System.out.print("Insira o Centro de Custo do produto: ");
         prod.setCentroCusto(sc.nextInt());
@@ -135,7 +148,6 @@ public class EstoqueService {
         // Ordena a lista após cada novo cadastro para manter a ordem por código
         ordenarProduto();
     }
-
 
     // =====================
     // ADICIONAR PRODUTO (ENTRADA DE ESTOQUE)
@@ -165,6 +177,7 @@ public class EstoqueService {
         int quantidade = sc.nextInt();
 
         // Valida que a quantidade informada seja positiva
+        // 0 não é permitido na movimentação — por isso <= 0
         if (quantidade <= 0) {
             System.out.println("Quantidade inválida. Informe um valor maior que zero.");
             return;
@@ -177,7 +190,6 @@ public class EstoqueService {
         System.out.println("Entrada registrada com sucesso!");
         System.out.println("Novo estoque: " + prod.getQuantidade());
     }
-
 
     // =====================
     // REGISTRAR SAÍDA (SAÍDA DE ESTOQUE)
@@ -207,6 +219,7 @@ public class EstoqueService {
         int quantidade = sc.nextInt();
 
         // Valida que a quantidade seja positiva
+        // 0 não é permitido na movimentação — por isso <= 0
         if (quantidade <= 0) {
             System.out.println("Quantidade inválida. Informe um valor maior que zero.");
             return;
@@ -225,7 +238,6 @@ public class EstoqueService {
         System.out.println("Saída registrada com sucesso!");
         System.out.println("Estoque restante: " + prod.getQuantidade());
     }
-
 
     // =====================
     // ORDENAR PRODUTO (BUBBLE SORT)
@@ -282,19 +294,20 @@ public class EstoqueService {
         // printf formata a saída em colunas:
         // %-10s = texto alinhado à esquerda ocupando 10 caracteres
         // %-10d = número inteiro alinhado à esquerda ocupando 10 caracteres
-        // %n = quebra de linha (equivalente ao \n, mas compatível com todos os sistemas)
+        // %n = quebra de linha (compatível com todos os sistemas operacionais)
         System.out.printf("%-10s %-20s %-12s %-15s%n", "Código", "Descrição", "Quantidade", "Centro de Custo");
 
         // Linha separadora visual entre o cabeçalho e os dados
         System.out.println("=".repeat(60));
 
         // Percorre cada produto da lista e imprime os dados formatados
-        for (Produto lista : materiais) {
+        // Leitura: "para cada material em materiais"
+        for (Produto material : materiais) {
             System.out.printf("%-10d %-20s %-12d %-15d%n",
-                    lista.getCodigo(),       // %d = inteiro
-                    lista.getDescricao(),    // %s = texto
-                    lista.getQuantidade(),   // %d = inteiro
-                    lista.getCentroCusto()); // %d = inteiro
+                    material.getCodigo(),       // %d = inteiro
+                    material.getDescricao(),    // %s = texto
+                    material.getQuantidade(),   // %d = inteiro
+                    material.getCentroCusto()); // %d = inteiro
         }
     }
 
@@ -315,7 +328,7 @@ public class EstoqueService {
         System.out.print("Insira o código do produto: ");
         int codigo = sc.nextInt();
 
-        // Usa o metodo auxiliar para encontrar o produto
+        // Usa o método auxiliar para encontrar o produto
         Produto prod = buscarPorCodigo(codigo);
 
         // Se retornou null, o produto não existe na lista
@@ -331,7 +344,6 @@ public class EstoqueService {
         System.out.println("Quantidade: " + prod.getQuantidade());
         System.out.println("Centro de Custo: " + prod.getCentroCusto());
     }
-
 
     // =====================
     // EDITAR PRODUTO
@@ -360,11 +372,11 @@ public class EstoqueService {
         // Exibe o estado atual e o menu de opções de edição
         System.out.println("Produto atual: " + prod.getDescricao());
         System.out.println("O que deseja editar?");
-        System.out.println("1 - Descrição: " + prod.getDescricao());
-        System.out.println("2 - Quantidade: " + prod.getQuantidade());
-        System.out.println("3 - Centro de Custo: " + prod.getCentroCusto());
-        System.out.println("4 - Tudo");
-        System.out.println("5 - Código: " + prod.getCodigo());
+        System.out.println("1 - Código: " + prod.getCodigo());
+        System.out.println("2 - Descrição: " + prod.getDescricao());
+        System.out.println("3 - Quantidade: " + prod.getQuantidade());
+        System.out.println("4 - Centro de Custo: " + prod.getCentroCusto());
+        System.out.println("5 - Tudo");
         System.out.print("Opção: ");
 
         int opcao = sc.nextInt();
@@ -375,52 +387,55 @@ public class EstoqueService {
 
         switch (opcao) {
 
-            case 1: // Editar apenas a Descrição
+            case 1: // Editar apenas o Código
+                System.out.println("Antigo Código: " + prod.getCodigo());
+                System.out.print("Novo Código: ");
+                prod.setCodigo(sc.nextInt());
+                break;
+
+            case 2: // Editar apenas a Descrição
                 System.out.println("Antiga Descrição: " + prod.getDescricao());
                 System.out.print("Nova Descrição: ");
                 prod.setDescricao(sc.nextLine());
                 break;
 
-            case 2: // Editar apenas a Quantidade
+            case 3: // Editar apenas a Quantidade
                 System.out.println("Antiga Quantidade: " + prod.getQuantidade());
                 System.out.print("Nova Quantidade: ");
                 prod.setQuantidade(sc.nextInt());
                 break;
 
-            case 3: // Editar apenas o Centro de Custo
+            case 4: // Editar apenas o Centro de Custo
                 System.out.println("Antigo Centro de Custo: " + prod.getCentroCusto());
                 System.out.print("Novo Centro de Custo: ");
                 prod.setCentroCusto(sc.nextInt());
                 break;
 
-            case 4: // Editar todos os campos exceto código
-                System.out.println("Antiga Descrição: " + prod.getDescricao());
-                System.out.print("Nova Descrição: ");
-                prod.setDescricao(sc.nextLine()); // nextLine lê com espaços
-
-                System.out.println("Antiga Quantidade: " + prod.getQuantidade());
-                System.out.print("Nova Quantidade: ");
-                prod.setQuantidade(sc.nextInt());
-
-                System.out.println("Antigo Centro de Custo: " + prod.getCentroCusto());
-                System.out.print("Novo Centro de Custo: ");
-                prod.setCentroCusto(sc.nextInt());
-                break;
-
-            case 5: // Editar apenas o Código
+            case 5: // Editar todos os campos
                 System.out.println("Antigo Código: " + prod.getCodigo());
                 System.out.print("Novo Código: ");
                 prod.setCodigo(sc.nextInt());
+                sc.nextLine(); // Limpa buffer antes do nextLine()
+
+                System.out.println("Antiga Descrição: " + prod.getDescricao());
+                System.out.print("Nova Descrição: ");
+                prod.setDescricao(sc.nextLine());
+
+                System.out.println("Antiga Quantidade: " + prod.getQuantidade());
+                System.out.print("Nova Quantidade: ");
+                prod.setQuantidade(sc.nextInt());
+
+                System.out.println("Antigo Centro de Custo: " + prod.getCentroCusto());
+                System.out.print("Novo Centro de Custo: ");
+                prod.setCentroCusto(sc.nextInt());
                 break;
 
             default:
                 System.out.println("Opção inválida!");
                 return;
         }
-
         System.out.println("Produto atualizado com sucesso!");
     }
-
 
     // =====================
     // EXCLUIR PRODUTO
@@ -467,7 +482,6 @@ public class EstoqueService {
             System.out.println("Exclusão cancelada.");
         }
     }
-
 
     // =====================
     // LIMPAR LISTA

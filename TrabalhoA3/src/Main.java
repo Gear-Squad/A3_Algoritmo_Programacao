@@ -1,5 +1,4 @@
 import Classes.EstoqueService;
-
 import java.util.Scanner;
 
 // Main é o ponto de entrada do programa.
@@ -14,7 +13,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         // EstoqueService é o objeto que contém toda a lógica do sistema
-        // Todos os métodos/funções são chamados a partir daqui
+        // Todos os métodos são chamados a partir daqui
         EstoqueService stq = new EstoqueService();
 
         // Variável que guarda a opção digitada pelo usuário no menu principal
@@ -44,7 +43,7 @@ public class Main {
             switch (opcao) {
 
                 case 1:
-                    // Chama o metodo de cadastro no EstoqueService (stq)
+                    // Chama o método de cadastro no EstoqueService (stq)
                     stq.cadastrarProduto();
                     break;
 
@@ -76,7 +75,7 @@ public class Main {
                             case 0:
                                 System.out.println("Voltando <-");
                                 break;
-                            default: // Caso escolha uma opção diferente das que foram mapeadas
+                            default: // Caso escolha uma opção diferente das mapeadas
                                 System.out.println("Opção inválida! Tente novamente.");
                         }
                     } while (movimentacao != 0); // Repete o submenu até digitar 0
@@ -109,7 +108,7 @@ public class Main {
                             case 0:
                                 System.out.println("Voltando <-");
                                 break;
-                            default: // Caso escolha uma opção diferente das que foram mapeadas
+                            default: // Caso escolha uma opção diferente das mapeadas
                                 System.out.println("Opção inválida! Tente novamente.");
                         }
                     } while (listagem != 0); // Repete o submenu até digitar 0
@@ -146,7 +145,7 @@ public class Main {
                             case 0:
                                 System.out.println("Voltando <-");
                                 break;
-                            default: // Caso escolha uma opção diferente das que foram mapeadas
+                            default: // Caso escolha uma opção diferente das mapeadas
                                 System.out.println("Opção inválida! Tente novamente.");
                         }
                     } while (edicao != 0); // Repete o submenu até digitar 0
