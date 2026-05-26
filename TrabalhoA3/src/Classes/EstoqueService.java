@@ -1,4 +1,5 @@
 package Classes;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -81,11 +82,96 @@ public class EstoqueService {
     // Função Adicionar Produtos - Atribuido á: Kaique
 
     public void adicionarProduto() {
+
+        // Valida se existe produtos na lista
+
+        if (materiais.isEmpty()) {
+            System.out.println("Não existem produtos cadastrados.");
+            return;
+        }
+
+        // Insira o código
+
+        System.out.println("Digite o código do produto: ");
+        int codigo = sc.nextInt();
+
+        // roda a função para verificar se existe esse código
+        Produto prod = buscarPorCodigo(codigo);
+
+        // Se não existir o código do produto retorna produto não encontrado.
+        if (prod == null) {
+
+            System.out.println("Produto não encontrado.");
+            return;
+        }
+
+        // Inicio da movimentação
+        System.out.println("Digite a quantidade do produto: ");
+        int quantidade = sc.nextInt();
+
+
+        // Se inserir quantidade negativa:
+        if (quantidade <= 0) {
+            System.out.println("Quantidade inválida.");
+            return;
+        }
+
+        prod.setQuantidade(prod.getQuantidade() + quantidade);
+
+        // Sucesso
+        System.out.println("Entrada registrada com sucesso.");
+        System.out.println("Novo estoque: " + prod.getQuantidade());
+
     }
 
     // Função Registrar Saída - Atribuido á: Kaique
 
     public void registrarSaida() {
+
+        // Valida se existe itens na lista
+
+        if (materiais.isEmpty()) {
+            System.out.println("Não existem produtos cadastrados.");
+            return;
+        }
+
+        // Valida o código
+
+        System.out.print("Digite o código do produto: ");
+        int codigo = sc.nextInt();
+
+        // Verifica se existe esse código na lista
+
+        Produto prod = buscarPorCodigo(codigo);
+
+        // Se não existir retorna erro
+
+        if (prod == null) {
+            System.out.println("Produto não encontrado.");
+            return;
+        }
+
+        // Inicio da movimentação
+
+        System.out.print("Digite a quantidade de saída: ");
+        int quantidade = sc.nextInt();
+
+
+        if (quantidade <= 0) {
+            System.out.println("Quantidade inválida.");
+            return;
+        }
+
+        if (quantidade > prod.getQuantidade()) {
+            System.out.println("Erro: quantidade maior que estoque disponível.");
+            return;
+        }
+
+        prod.setQuantidade(prod.getQuantidade() - quantidade);
+
+        System.out.println("Saída registrada com sucesso.");
+        System.out.println("Estoque restante: " + prod.getQuantidade());
+
     }
 
     // Função Ordenar - Atribuido á: Deivisson
@@ -258,6 +344,8 @@ public class EstoqueService {
         System.out.println("2 - Quantidade: " + prod.getQuantidade());
         System.out.println("3 - Centro de Custo: " + prod.getCentroCusto());
         System.out.println("4 - Tudo");
+        System.out.println("5 - Código: " + prod.getCodigo());
+
         System.out.print("Opção: ");
 
         // Lê opção do menu
@@ -274,13 +362,13 @@ public class EstoqueService {
 
             case 1:  // Editar Descrição
                 System.out.println("Antiga Descrição: " + prod.getDescricao());
-                System.out.print("Nova Descrição: " );
+                System.out.print("Nova Descrição: ");
                 prod.setDescricao(sc.nextLine());
                 break;
 
             case 2:  // Editar Quantidade
                 System.out.println("Antiga Quantidade: " + prod.getQuantidade());
-                System.out.print("Nova Quantidade: " );
+                System.out.print("Nova Quantidade: ");
                 prod.setQuantidade(sc.nextInt());
                 break;
 
@@ -306,6 +394,15 @@ public class EstoqueService {
                 System.out.println("Antigo Centro de Custo: " + prod.getCentroCusto());
                 System.out.print("Novo Centro de Custo: ");
                 prod.setCentroCusto(sc.nextInt());
+
+                break;
+
+            case 5:  // Editar Código
+
+                // Código
+                System.out.println("Antiga Código: " + prod.getCodigo());
+                System.out.print("Novo Código: ");
+                prod.setCodigo(sc.nextInt());
 
                 break;
 

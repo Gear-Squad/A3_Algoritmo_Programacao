@@ -37,6 +37,7 @@ public class Main {
 
                 case 2:
                     // Submenu de movimentação - repete até o usuário voltar
+
                     int movimentacao;
                     do {
                         System.out.println();
