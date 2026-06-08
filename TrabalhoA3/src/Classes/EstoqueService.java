@@ -138,7 +138,7 @@ public class EstoqueService {
 
         prod.setQuantidade(quantidade);
 
-        prod.setCentroCusto(lerInteiro("Insira o Centro de Custo do produto: "));
+        prod.setCentroCusto(lerInteiro("Insira o Código do Centro de Custo do produto: "));
 
         // Adiciona o produto preenchido na lista
         materiais.add(prod);
@@ -149,7 +149,6 @@ public class EstoqueService {
         // Ordena a lista após cada novo cadastro para manter a ordem por código
         ordenarProduto();
     }
-
 
     // =====================
     // ADICIONAR PRODUTO (ENTRADA DE ESTOQUE)
@@ -163,6 +162,7 @@ public class EstoqueService {
 
         int codigo = lerInteiro("Digite o código do produto: ");
 
+        // Método auxiliar que passa como parâmetro o código informado para verificar se existe esse código dentro da lista
         Produto prod = buscarPorCodigo(codigo);
         if (prod == null) {
             System.out.println("Produto não encontrado.");
@@ -170,6 +170,7 @@ public class EstoqueService {
         }
 
         // Exibe o estoque atual antes de pedir a quantidade — ajuda o usuário
+        System.out.println("Produto encontrado: " + prod.getDescricao());
         System.out.println("Estoque atual: " + prod.getQuantidade());
 
         int quantidade = lerInteiro("Digite a quantidade a adicionar: ");
@@ -204,6 +205,7 @@ public class EstoqueService {
         }
 
         // Exibe o estoque atual antes de pedir a quantidade — ajuda o usuário
+        System.out.println("Produto encontrado: " + prod.getDescricao());
         System.out.println("Estoque atual: " + prod.getQuantidade());
 
         int quantidade = lerInteiro("Digite a quantidade de saída: ");
@@ -380,8 +382,8 @@ public class EstoqueService {
                 break;
 
             case 4: // Editar apenas o Centro de Custo
-                System.out.println("Antigo Centro de Custo: " + prod.getCentroCusto());
-                prod.setCentroCusto(lerInteiro("Novo Centro de Custo: "));
+                System.out.println("Antigo Código do Centro de Custo: " + prod.getCentroCusto());
+                prod.setCentroCusto(lerInteiro("Novo Código do Centro de Custo: "));
                 break;
 
             case 5: // Editar todos os campos
@@ -403,8 +405,8 @@ public class EstoqueService {
                 System.out.println("Antiga Quantidade: " + prod.getQuantidade());
                 prod.setQuantidade(lerInteiro("Nova Quantidade: "));
 
-                System.out.println("Antigo Centro de Custo: " + prod.getCentroCusto());
-                prod.setCentroCusto(lerInteiro("Novo Centro de Custo: "));
+                System.out.println("Antigo Código do Centro de Custo: " + prod.getCentroCusto());
+                prod.setCentroCusto(lerInteiro("Novo Código do Centro de Custo: "));
                 break;
 
             default:

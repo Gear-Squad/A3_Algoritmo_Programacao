@@ -40,6 +40,7 @@ public class Main {
         // =====================
         // do-while executa ao menos uma vez antes de verificar a condição
         // O menu fica aparecendo até o usuário digitar 0 para sair
+
         do {
             System.out.println();
             System.out.println(" -> Gear Squad - Controle de Estoque <- ");
